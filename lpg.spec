@@ -10,6 +10,7 @@ Group:		Books/Computer books
 Source:		%name-%version.html.tar.bz2
 Url:		http://sunsite.unc.edu/LDP
 License:	Artistic style
+Buildroot:	%_tmppath/%name-%version-buildroot
 BuildArch:	noarch
 
 %description
