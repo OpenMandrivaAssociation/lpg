@@ -1,6 +1,6 @@
 %define	name	lpg
 %define	version	0.4
-%define	release	%mkrel 19
+%define	release	%mkrel 20
 
 Summary:	The LDP's Linux programming guide in HTML format
 Name:		%name
