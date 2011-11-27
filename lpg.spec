@@ -3,7 +3,7 @@
 
 Name:      lpg
 Version:   %{_version}
-Release:   1
+Release:   3
 Summary:   LALR Parser Generator
 Group:     Development/Java
 # although the text of the licence isn't distributed with some of the source,
