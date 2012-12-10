@@ -144,3 +144,35 @@ rm -rf %{buildroot}
 %doc lpg-java-runtime/Eclipse\ Public\ License\ -\ Version\ 1_0.htm
 %{_javadir}/%{name}javaruntime*
 
+
+
+%changelog
+* Sun Nov 27 2011 Guilherme Moro <guilherme@mandriva.com> 2.0.17-3
++ Revision: 734061
+- rebuild
+- imported package lpg
+
+  + Oden Eriksson <oeriksson@mandriva.com>
+    - the mass rebuild of 2010.0 packages
+
+* Fri Sep 04 2009 Thierry Vignaud <tv@mandriva.org> 0.4-19mdv2010.0
++ Revision: 429870
+- rebuild
+
+* Mon Jul 28 2008 Thierry Vignaud <tv@mandriva.org> 0.4-18mdv2009.0
++ Revision: 251408
+- rebuild
+
+* Thu Jan 03 2008 Olivier Blin <blino@mandriva.org> 0.4-16mdv2008.1
++ Revision: 140933
+- restore BuildRoot
+
+  + Thierry Vignaud <tv@mandriva.org>
+    - kill re-definition of %%buildroot on Pixel's request
+
+
+* Mon Jan 15 2007 Lenny Cartier <lenny@mandriva.com> 0.4-16mdv2007.0
++ Revision: 109148
+- Rebuild
+- Import lpg
+
