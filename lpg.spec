@@ -1,11 +1,12 @@
+%{?_javapackages_macros:%_javapackages_macros}
 %global    _version 2.0.17
 %global    _compat_version 1.1.0
 
 Name:      lpg
 Version:   %{_version}
-Release:   3
+Release:   11.0%{?dist}
 Summary:   LALR Parser Generator
-Group:     Development/Java
+
 # although the text of the licence isn't distributed with some of the source,
 # the author has exlicitly stated that everything is covered under the EPL
 # see: http://sourceforge.net/forum/forum.php?thread_id=3277926&forum_id=523519
@@ -42,7 +43,7 @@ inheritance.
 
 %package       java
 Summary:       Java runtime library for LPG
-Group:         Development/Java
+
 
 BuildArch:     noarch
 
@@ -59,7 +60,7 @@ Java runtime library for parsers generated with the LALR Parser Generator
 %package       java-compat
 Version:       %{_compat_version}
 Summary:       Compatibility Java runtime library for LPG 1.x
-Group:         Development/Java
+
 
 BuildArch:     noarch
 
@@ -113,8 +114,6 @@ make clean install ARCH=linux_x86 \
 popd
 
 %install
-rm -rf %{buildroot}
-
 install -pD -T lpg-java-runtime/%{name}runtime.jar \
   %{buildroot}%{_javadir}/%{name}runtime-%{_version}.jar
 install -pD -T lpgdistribution/%{name}javaruntime.jar \
@@ -126,53 +125,62 @@ install -pD -T lpg-generator-cpp/bin/%{name}-linux_x86 \
 (cd %{buildroot}%{_javadir} && for jar in *-%{_version}.jar; do ln -sf ${jar} `echo $jar| sed "s|-%{_version}||g"`; done)
 (cd %{buildroot}%{_javadir} && for jar in *-%{_compat_version}.jar; do ln -sf ${jar} `echo $jar| sed "s|-%{_compat_version}||g"`; done)
 
-%clean
-rm -rf %{buildroot}
-
 %files
-%defattr(-,root,root,-)
 %doc lpg-generator-templates/docs/*
 %{_bindir}/%{name}
 
 %files java
-%defattr(-,root,root,-)
-%doc lpg-java-runtime/Eclipse\ Public\ License\ -\ Version\ 1_0.htm
+%doc lpg-java-runtime/Eclipse*.htm
 %{_javadir}/%{name}runtime*
 
 %files java-compat
-%defattr(-,root,root,-)
-%doc lpg-java-runtime/Eclipse\ Public\ License\ -\ Version\ 1_0.htm
+%doc lpg-java-runtime/Eclipse*.htm
 %{_javadir}/%{name}javaruntime*
 
-
-
 %changelog
-* Sun Nov 27 2011 Guilherme Moro <guilherme@mandriva.com> 2.0.17-3
-+ Revision: 734061
-- rebuild
-- imported package lpg
+* Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.0.17-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
 
-  + Oden Eriksson <oeriksson@mandriva.com>
-    - the mass rebuild of 2010.0 packages
+* Sat Feb 16 2013 Mat Booth <fedora@matbooth.co.uk> - 2.0.17-10
+- Fix rpm %%doc parsing by globbing instead of escaping.
 
-* Fri Sep 04 2009 Thierry Vignaud <tv@mandriva.org> 0.4-19mdv2010.0
-+ Revision: 429870
-- rebuild
+* Thu Feb 14 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.0.17-9.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
 
-* Mon Jul 28 2008 Thierry Vignaud <tv@mandriva.org> 0.4-18mdv2009.0
-+ Revision: 251408
-- rebuild
+* Thu Jul 19 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.0.17-8.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
 
-* Thu Jan 03 2008 Olivier Blin <blino@mandriva.org> 0.4-16mdv2008.1
-+ Revision: 140933
-- restore BuildRoot
+* Fri Jan 13 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.0.17-7.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
 
-  + Thierry Vignaud <tv@mandriva.org>
-    - kill re-definition of %%buildroot on Pixel's request
+* Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.0.17-6.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
 
+* Tue Oct 05 2010 jkeating - 2.0.17-5.1
+- Rebuilt for gcc bug 634757
 
-* Mon Jan 15 2007 Lenny Cartier <lenny@mandriva.com> 0.4-16mdv2007.0
-+ Revision: 109148
-- Rebuild
-- Import lpg
+* Mon Sep 13 2010 Mat Booth <fedora@matbooth.co.uk> 2.0.17-5
+- Re-patch the OSGi manifest because for some reason Eclipse Orbit decided
+  not to use the same symbolic bundle name as LPG upstream did.
 
+* Sat Jul 25 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.0.17-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
+
+* Wed Jul 15 2009 Mat Booth <fedora@matbooth.co.uk> 2.0.17-3
+- Add missing build dependency on ant-apache-regexp.
+- Remove empty sub-package that was accidentally left.
+
+* Sun Jul 05 2009 Mat Booth <fedora@matbooth.co.uk> 2.0.17-2
+- Add version constants so we get the correct version numbers on the java
+  libraries.
+
+* Sat Jul 04 2009 Mat Booth <fedora@matbooth.co.uk> 2.0.17-1
+- Update to 2.0.17.
+- Add OSGI manifest info to the runtime jar.
+- Bundle generator docs with the generator in the main package.
+
+* Tue May 19 2009 Mat Booth <fedora@matbooth.co.uk> 2.0.16-2
+- Better document source files/patches.
+
+* Tue Apr 28 2009 Mat Booth <fedora@matbooth.co.uk> 2.0.16-1
+- Initial release of version 2.
