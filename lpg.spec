@@ -4,9 +4,9 @@
 
 Name:      lpg
 Version:   %{_version}
-Release:   11.0%{?dist}
+Release:   15.1
 Summary:   LALR Parser Generator
-
+Group:	   Development/Java
 # although the text of the licence isn't distributed with some of the source,
 # the author has exlicitly stated that everything is covered under the EPL
 # see: http://sourceforge.net/forum/forum.php?thread_id=3277926&forum_id=523519
@@ -35,6 +35,9 @@ Patch0:    %{name}-bootstrap-target.patch
 # change build script to build the base jar with osgi bundle info
 Patch1:    %{name}-osgi-jar.patch
 
+# fix segfault caused by aggressive optimisation of null checks in gcc 4.9
+Patch2: %{name}-segfault.patch
+
 %description
 The LALR Parser Generator (LPG) is a tool for developing scanners and parsers
 written in Java, C++ or C. Input is specified by BNF rules. LPG supports
@@ -50,7 +53,7 @@ BuildArch:     noarch
 BuildRequires: java-devel
 BuildRequires: jpackage-utils
 BuildRequires: ant-apache-regexp
-Requires:      java
+Requires:      java-headless
 Requires:      jpackage-utils
 
 %description   java
@@ -67,7 +70,7 @@ BuildArch:     noarch
 BuildRequires: java-devel
 BuildRequires: jpackage-utils
 BuildRequires: ant
-Requires:      java
+Requires:      java-headless
 Requires:      jpackage-utils
 
 %description   java-compat
@@ -92,6 +95,7 @@ cp -p %{SOURCE5} lpgdistribution/MANIFEST.MF
 # apply patches
 %patch0 -p0 -b .orig
 %patch1 -p0 -b .orig
+%patch2 -p0 -b .orig
 
 %build
 # build java stuff
@@ -115,15 +119,11 @@ popd
 
 %install
 install -pD -T lpg-java-runtime/%{name}runtime.jar \
-  %{buildroot}%{_javadir}/%{name}runtime-%{_version}.jar
+  %{buildroot}%{_javadir}/%{name}runtime.jar
 install -pD -T lpgdistribution/%{name}javaruntime.jar \
-  %{buildroot}%{_javadir}/%{name}javaruntime-%{_compat_version}.jar
+  %{buildroot}%{_javadir}/%{name}javaruntime.jar
 install -pD -T lpg-generator-cpp/bin/%{name}-linux_x86 \
   %{buildroot}%{_bindir}/%{name}
-
-# create unversioned symlinks to jars
-(cd %{buildroot}%{_javadir} && for jar in *-%{_version}.jar; do ln -sf ${jar} `echo $jar| sed "s|-%{_version}||g"`; done)
-(cd %{buildroot}%{_javadir} && for jar in *-%{_compat_version}.jar; do ln -sf ${jar} `echo $jar| sed "s|-%{_compat_version}||g"`; done)
 
 %files
 %doc lpg-generator-templates/docs/*
@@ -131,11 +131,11 @@ install -pD -T lpg-generator-cpp/bin/%{name}-linux_x86 \
 
 %files java
 %doc lpg-java-runtime/Eclipse*.htm
-%{_javadir}/%{name}runtime*
+%{_javadir}/%{name}runtime.jar
 
 %files java-compat
 %doc lpg-java-runtime/Eclipse*.htm
-%{_javadir}/%{name}javaruntime*
+%{_javadir}/%{name}javaruntime.jar
 
 %changelog
 * Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.0.17-11
