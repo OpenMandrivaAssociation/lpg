@@ -3,8 +3,8 @@
 %global    _compat_version 1.1.0
 
 Name:      lpg
-Version:   %{_version}
-Release:   15.3
+Version:	2.0.17
+Release:	1
 Summary:   LALR Parser Generator
 Group:	   Development/Java
 # although the text of the licence isn't distributed with some of the source,
@@ -61,7 +61,7 @@ Java runtime library for parsers generated with the LALR Parser Generator
 (LPG).
 
 %package       java-compat
-Version:       %{_compat_version}
+Version:	2.0.17
 Summary:       Compatibility Java runtime library for LPG 1.x
 
 
