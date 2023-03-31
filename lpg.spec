@@ -4,7 +4,7 @@
 
 Name:      lpg
 Version:	2.0.17
-Release:	1
+Release:	2
 Summary:   LALR Parser Generator
 Group:	   Development/Java
 # although the text of the licence isn't distributed with some of the source,
