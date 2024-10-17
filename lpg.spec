@@ -11,7 +11,7 @@ Group:	   Development/Java
 # the author has exlicitly stated that everything is covered under the EPL
 # see: http://sourceforge.net/forum/forum.php?thread_id=3277926&forum_id=523519
 License:   EPL
-URL:       http://lpg.sourceforge.net/
+URL:       https://lpg.sourceforge.net/
 
 Source0:   http://downloads.sourceforge.net/lpg/lpg-java-runtime-src-%{version}.zip
 Source1:   http://downloads.sourceforge.net/lpg/lpg-generator-cpp-src-%{version}.zip
