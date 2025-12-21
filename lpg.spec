@@ -50,6 +50,7 @@ Summary:       Java runtime library for LPG
 
 BuildArch:     noarch
 
+BuildRequires:	make
 BuildRequires: java-devel
 BuildRequires: jpackage-utils
 BuildRequires: ant-apache-regexp
